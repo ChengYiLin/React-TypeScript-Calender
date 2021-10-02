@@ -11,6 +11,7 @@
   "author": "Cheng Yi Lin",
   "license": "ISC",
   "dependencies": {
+    "dayjs": "^1.10.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
