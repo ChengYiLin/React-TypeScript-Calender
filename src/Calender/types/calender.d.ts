@@ -19,5 +19,5 @@ export interface ICalenderContext {
     handleSelectYear: (year: selectedYear) => void;
     handleSelectMonth: (year: selectedMonth) => void;
     handleChangeViewType: (target?: viewTypes) => void;
-    handleMoveViewYear: (direction: moveTypes) => void;
+    handleMoveAction: (direction: moveTypes) => void;
 }

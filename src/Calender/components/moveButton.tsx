@@ -29,17 +29,11 @@ interface Props {
 
 const MoveButton: FC<Props> = (props) => {
 	const { direction } = props
-	const { viewType, handleMoveViewYear } = useContext(CalenderContext)
-
-	const handleMoveAction = () => {
-		if (viewType !== 'date') {
-			handleMoveViewYear(direction)
-		}
-	}
+	const { handleMoveAction } = useContext(CalenderContext)
 
 	return (
 		<Container>
-			<Arrow onClick={handleMoveAction}>
+			<Arrow onClick={() => handleMoveAction(direction)}>
 				{(direction === 'prev') ?
 					<span>&#60;</span> :
 					<span>&#62;</span>

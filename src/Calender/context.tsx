@@ -13,7 +13,7 @@ const CalenderContextInitState: ICalenderContext = {
 	handleSelectYear: () => {return},
 	handleSelectMonth: () => {return},
 	handleChangeViewType: () => {return},
-	handleMoveViewYear: () => {return},
+	handleMoveAction: () => {return},
 }
 
 export const CalenderContext = createContext(CalenderContextInitState)
@@ -54,10 +54,13 @@ export const CalenderProvider: FC = ({children}) => {
 		}
 	}
 
-	const handleMoveViewYear = (direction: moveTypes) => {
+	const handleMoveAction = (direction: moveTypes) => {
+		const duration = (viewType === 'year') ? 10 : 1
+		const moveType = (viewType !== 'date') ? 'year' : 'month'
+
 		const targetDate = (direction === 'next') ?
-			dayjs(currentDate).add(10, 'year').toDate() :
-			dayjs(currentDate).subtract(10, 'year').toDate()
+			dayjs(currentDate).add(duration, moveType).toDate() :
+			dayjs(currentDate).subtract(duration, moveType).toDate()
 
 		setCurrentDate(targetDate)
 	}
@@ -69,7 +72,7 @@ export const CalenderProvider: FC = ({children}) => {
 			handleSelectYear,
 			handleSelectMonth,
 			handleChangeViewType,
-			handleMoveViewYear,
+			handleMoveAction,
 		}
 	),[currentDate, viewType])
 
