@@ -6,7 +6,7 @@ import { CalenderProvider } from './context'
 import InputBar from './components/inputBar'
 import MoveButton from './components/moveButton'
 import ViewTypeSwitch from './components/viewTypeSwitch'
-import PannelRouter from './components/pannelRouter'
+import PanelRouter from './components/panelRouter'
 
 const Calender: FC = () => {
 	return (
@@ -14,12 +14,12 @@ const Calender: FC = () => {
 			<Styled.Container>
 				<InputBar />
 				<Styled.CalenderContainer>
-					<Styled.SwitchPannel>
+					<Styled.SwitchPanel>
 						<MoveButton direction='prev' />
 						<ViewTypeSwitch />
 						<MoveButton direction='next' />
-					</Styled.SwitchPannel>
-					<PannelRouter />
+					</Styled.SwitchPanel>
+					<PanelRouter />
 				</Styled.CalenderContainer>
 			</Styled.Container>
 		</CalenderProvider>

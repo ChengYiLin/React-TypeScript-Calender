@@ -1,5 +1,6 @@
 import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
+import { selectedValue } from '../types/calender'
 import { getMonthArray } from '../helper'
 import { CalenderContext } from '../context'
 
@@ -27,10 +28,14 @@ const Month = styled.p<{isSelected: boolean}>`
 	color: ${props => props.isSelected ? '#ffffff' : '#000000'};
 `
 
-const MonthPannel: FC = () => {
+const MonthPanel: FC = () => {
 	const { currentDate } = useContext(CalenderContext)
 	
 	const MonthArray = getMonthArray(currentDate)
+
+	const handleSelectMonth = (month: selectedValue) => {
+		console.log(month)
+	}
 
 	return (
 		<Container>
@@ -38,7 +43,8 @@ const MonthPannel: FC = () => {
 				{MonthArray.map(month => (
 					<Month 
 						key={month.value}
-						isSelected={month.isSelected} >
+						isSelected={month.isSelected}
+						onClick={() => handleSelectMonth(month)}>
 						{month.value}
 					</Month>
 				))}
@@ -47,4 +53,4 @@ const MonthPannel: FC = () => {
 	)
 }
 
-export default MonthPannel
+export default MonthPanel

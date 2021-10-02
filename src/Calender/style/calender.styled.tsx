@@ -30,7 +30,7 @@ export const CalenderContainer = styled(ResetStyle)`
 	padding: 10px;
 `
 
-export const SwitchPannel = styled.div`
+export const SwitchPanel = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

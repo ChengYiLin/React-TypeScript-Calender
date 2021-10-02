@@ -1,11 +1,11 @@
 import dayjs from 'dayjs'
-import { selectedVale } from '../types/calender'
+import { selectedValue } from '../types/calender'
 import { MonthEnum } from '../types/enum'
 
-export const getViewYearRange = (currentDate: Date): selectedVale[] => {
+export const getViewYearRange = (currentDate: Date): selectedValue[] => {
 	const startYear = Math.floor(dayjs(currentDate).year() / 10) * 10 - 1
 
-	const result: selectedVale[] = []
+	const result: selectedValue[] = []
 
 	// 12 個年份為一組
 	let startIndex = 0
@@ -23,8 +23,8 @@ export const getViewYearRange = (currentDate: Date): selectedVale[] => {
 	return result
 }
 
-export const getMonthArray =  (currentDate: Date): selectedVale[] => {
-	const MonthArray: selectedVale[] = Object.keys(MonthEnum)
+export const getMonthArray =  (currentDate: Date): selectedValue[] => {
+	const MonthArray: selectedValue[] = Object.keys(MonthEnum)
 		.filter(item => isNaN(parseInt(item)))
 		.map(month => (
 			{

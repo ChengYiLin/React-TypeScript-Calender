@@ -1,7 +1,7 @@
 import React, { createContext, FC, useState, useMemo } from 'react'
 import dayjs from 'dayjs'
 // Tying
-import { ICalenderContext, viewTypes, selectedVale, moveTypes } from './types/calender'
+import { ICalenderContext, viewTypes, selectedValue, moveTypes } from './types/calender'
 // Helper
 import { getViewYearRange } from './helper'
 
@@ -20,7 +20,7 @@ export const CalenderProvider: FC = ({children}) => {
 	const [currentDate, setCurrentDate] = useState<Date>(Today)
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [viewType, setViewType] = useState<viewTypes>('month')
-	const [viewYearArray, setViewYearArray] = useState<selectedVale[]>(getViewYearRange(Today))
+	const [viewYearArray, setViewYearArray] = useState<selectedValue[]>(getViewYearRange(Today))
 
 	const handleMoveViewYear = (direction: moveTypes): void => {
 		const targetDate = (direction === 'next') ?

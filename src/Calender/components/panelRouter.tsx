@@ -2,21 +2,21 @@ import React, { FC, useContext } from 'react'
 // Context
 import { CalenderContext } from '../context'
 // Components
-import YearPannel from './yearPannel'
-import MonthPannel from './monthPannel'
+import YearPanel from './yearPanel'
+import MonthPanel from './monthPanel'
 
 
-const PannelRouter: FC = () => {
+const PanelRouter: FC = () => {
 	const { viewType } = useContext(CalenderContext)
         
 	switch (viewType) {
 	case 'year':
-		return <YearPannel />
+		return <YearPanel />
 	case 'month':
-		return <MonthPannel />
+		return <MonthPanel />
 	default:
-		return <MonthPannel />
+		return <MonthPanel />
 	}
 }
 
-export default PannelRouter
+export default PanelRouter
