@@ -1,5 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
+// Context
+import { CalenderContext } from '../context'
+// Types
+import { moveTypes } from '../types/calender'
 
 const Container = styled.button`
     background: transparent;
@@ -20,21 +24,23 @@ const Arrow = styled.p`
 `
 
 interface Props {
-    forward: 'next' | 'prev';
+    direction: moveTypes;
 }
 
-const MoveButton:FC<Props> = (props) => {
-	const {forward} = props
+const MoveButton: FC<Props> = (props) => {
+	const { direction } = props
+	const { viewType, handleMoveViewYear } = useContext(CalenderContext)
 
-	const handleButtonClick = () => {
-		console.log('Click')
-		console.log(`forward : ${forward}`)
+	const handleMoveAction = () => {
+		if (viewType !== 'date') {
+			handleMoveViewYear(direction)
+		}
 	}
 
 	return (
 		<Container>
-			<Arrow onClick={handleButtonClick}>
-				{(forward === 'prev') ?
+			<Arrow onClick={handleMoveAction}>
+				{(direction === 'prev') ?
 					<span>&#60;</span> :
 					<span>&#62;</span>
 				}

@@ -12,6 +12,11 @@ const ResetStyle = styled.div`
 `
 
 export const Container = styled(ResetStyle)`
+	display: flex;
+	flex-direction: column;
+`
+
+export const CalenderContainer = styled(ResetStyle)`
 	width: 322px;
 	height: 322px;
 

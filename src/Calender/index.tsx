@@ -1,24 +1,28 @@
 import React, { FC } from 'react'
-import dayjs from 'dayjs'
 import * as Styled from './style/calender.styled'
+// Context
+import { CalenderProvider } from './context'
 // Components
+import InputBar from './components/inputBar'
 import MoveButton from './components/moveButton'
 import ViewTypeSwitch from './components/viewTypeSwitch'
-import MonthPannel from './components/monthPannel'
+import PannelRouter from './components/pannelRouter'
 
-
-const Calender:FC = () => {
-	console.log(`Today : ${dayjs()}`)
-	
+const Calender: FC = () => {
 	return (
-		<Styled.Container>
-			<Styled.SwitchPannel>
-				<MoveButton forward='prev' />
-				<ViewTypeSwitch />
-				<MoveButton forward='next' />
-			</Styled.SwitchPannel>
-			<MonthPannel />
-		</Styled.Container>
+		<CalenderProvider>
+			<Styled.Container>
+				<InputBar />
+				<Styled.CalenderContainer>
+					<Styled.SwitchPannel>
+						<MoveButton direction='prev' />
+						<ViewTypeSwitch />
+						<MoveButton direction='next' />
+					</Styled.SwitchPannel>
+					<PannelRouter />
+				</Styled.CalenderContainer>
+			</Styled.Container>
+		</CalenderProvider>
 	)}
 
 export default Calender

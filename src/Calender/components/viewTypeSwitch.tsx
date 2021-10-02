@@ -1,6 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
+// Context
+import { CalenderContext } from '../context'
 
 const Container = styled.button`
     width: 200px;
@@ -19,14 +21,13 @@ const Content = styled.div`
     padding: 5px;
 `
 
-const handleClickSwitch = () => {
-	console.log('Click Switch')
-}
-
 const ViewTypeSwitch: FC = () => {
+	const { viewType } = useContext(CalenderContext)
+
 	return (
-		<Container onClick={handleClickSwitch}>
+		<Container>
 			<Content>
+				<span>{viewType} </span>
 				{dayjs().year()}
 			</Content>
 		</Container>

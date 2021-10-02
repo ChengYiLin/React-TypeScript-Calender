@@ -24,7 +24,7 @@ const Month = styled.p`
 `
 const MonthArray = Object.keys(MonthEnum).filter(item => isNaN(parseInt(item)))
 
-const MonthPannel:FC = () => {
+const MonthPannel: FC = () => {
 	const hacndleMonthClcik = (month: string) => {
 		console.log(`Click Month : ${month}`)
 	}
