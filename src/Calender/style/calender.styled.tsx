@@ -12,8 +12,8 @@ const ResetStyle = styled.div`
 `
 
 export const Container = styled(ResetStyle)`
-	width: 320px;
-	max-height: 360px;
+	width: 322px;
+	height: 322px;
 
 	display: flex;
 	flex-direction: column;
@@ -30,5 +30,5 @@ export const SwitchPannel = styled.div`
 	justify-content: space-between;
 	align-items: center;
 
-	margin-bottom: 5px;
+	margin-bottom: 6px;
 `

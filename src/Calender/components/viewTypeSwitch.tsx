@@ -15,6 +15,7 @@ const Container = styled.button`
 `
 
 const Content = styled.div`
+    font-size: 20px;
     padding: 5px;
 `
 

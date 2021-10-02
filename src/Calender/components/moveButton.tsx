@@ -7,7 +7,7 @@ const Container = styled.button`
 `
 
 const Arrow = styled.p`
-    font-size: 12px;
+    font-size: 16px;
     font-weight: bolder;
     padding: 10px 14px;
     border-radius: 50%;

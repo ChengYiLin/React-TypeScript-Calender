@@ -1,8 +1,11 @@
 import React, { FC } from 'react'
 import dayjs from 'dayjs'
 import * as Styled from './style/calender.styled'
+// Components
 import MoveButton from './components/moveButton'
 import ViewTypeSwitch from './components/viewTypeSwitch'
+import MonthPannel from './components/monthPannel'
+
 
 const Calender:FC = () => {
 	console.log(`Today : ${dayjs()}`)
@@ -14,9 +17,7 @@ const Calender:FC = () => {
 				<ViewTypeSwitch />
 				<MoveButton forward='next' />
 			</Styled.SwitchPannel>
-			<div>
-				<p>Pannel</p>
-			</div>
+			<MonthPannel />
 		</Styled.Container>
 	)}
 
