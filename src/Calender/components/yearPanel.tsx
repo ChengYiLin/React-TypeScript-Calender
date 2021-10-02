@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
-import { selectedValue } from '../types/calender'
+import { getYearArray } from '../helper'
 import { CalenderContext } from '../context'
 
 const Container = styled.div`
@@ -28,16 +28,14 @@ const Year = styled.p<{isOverRange: boolean; isSelected: boolean}>`
 `
 
 const YearPanel: FC = () => {
-	const { viewYearArray } = useContext(CalenderContext)
+	const { currentDate, handleSelectYear } = useContext(CalenderContext)
 
-	const handleSelectYear = (year: selectedValue) => {
-		console.log(year)
-	}
+	const YearArray = getYearArray(currentDate)
 
 	return (
 		<Container>
 			<YearContainer>
-				{viewYearArray.map(year => (
+				{YearArray.map(year => (
 					<Year 
 						key={year.value}
 						isOverRange={year.isOverRange}

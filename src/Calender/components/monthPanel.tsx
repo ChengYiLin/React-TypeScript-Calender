@@ -1,6 +1,5 @@
 import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
-import { selectedValue } from '../types/calender'
 import { getMonthArray } from '../helper'
 import { CalenderContext } from '../context'
 
@@ -29,13 +28,9 @@ const Month = styled.p<{isSelected: boolean}>`
 `
 
 const MonthPanel: FC = () => {
-	const { currentDate } = useContext(CalenderContext)
+	const { currentDate, handleSelectMonth } = useContext(CalenderContext)
 	
 	const MonthArray = getMonthArray(currentDate)
-
-	const handleSelectMonth = (month: selectedValue) => {
-		console.log(month)
-	}
 
 	return (
 		<Container>

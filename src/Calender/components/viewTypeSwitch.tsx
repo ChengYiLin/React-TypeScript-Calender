@@ -22,10 +22,10 @@ const Content = styled.div`
 `
 
 const ViewTypeSwitch: FC = () => {
-	const { viewType } = useContext(CalenderContext)
+	const { viewType, handleChangeViewType } = useContext(CalenderContext)
 
 	return (
-		<Container>
+		<Container onClick={() => handleChangeViewType()}>
 			<Content>
 				<span>{viewType} </span>
 				{dayjs().year()}
