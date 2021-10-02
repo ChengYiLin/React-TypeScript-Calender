@@ -1,6 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
-import { MonthEnum } from '../types/enum'
+import { getMonthArray } from '../helper'
+import { CalenderContext } from '../context'
 
 const Container = styled.div`
     flex: 1 0 auto;
@@ -15,26 +16,30 @@ const MonthContainer = styled.div`
     padding: 20px 14px;
 `
 
-const Month = styled.p`
+const Month = styled.p<{isSelected: boolean}>`
     font-size: 20px;
     text-align: center;
     padding: 18.5px 0;
     border-radius: 50%;
     cursor: pointer;
+
+	background-color: ${props => props.isSelected ? '#db3d44' : 'transparent'};
+	color: ${props => props.isSelected ? '#ffffff' : '#000000'};
 `
-const MonthArray = Object.keys(MonthEnum).filter(item => isNaN(parseInt(item)))
 
 const MonthPannel: FC = () => {
-	const hacndleMonthClcik = (month: string) => {
-		console.log(`Click Month : ${month}`)
-	}
+	const { currentDate } = useContext(CalenderContext)
+	
+	const MonthArray = getMonthArray(currentDate)
 
 	return (
 		<Container>
 			<MonthContainer>
 				{MonthArray.map(month => (
-					<Month key={month} onClick={() => hacndleMonthClcik(month)}>
-						{month}
+					<Month 
+						key={month.value}
+						isSelected={month.isSelected} >
+						{month.value}
 					</Month>
 				))}
 			</MonthContainer>

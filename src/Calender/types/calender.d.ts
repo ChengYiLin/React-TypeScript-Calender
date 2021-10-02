@@ -3,7 +3,7 @@ export type moveTypes = 'prev' | 'next';
 export type viewTypes = 'year' | 'month' | 'date'; 
 
 export interface selectedVale {
-    value: number;
+    value: number | string;
     isOverRange: boolean;
     isSelected: boolean;
 }

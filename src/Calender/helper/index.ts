@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { selectedVale } from '../types/calender'
+import { MonthEnum } from '../types/enum'
 
 export const getViewYearRange = (currentDate: Date): selectedVale[] => {
 	const startYear = Math.floor(dayjs(currentDate).year() / 10) * 10 - 1
@@ -20,4 +21,18 @@ export const getViewYearRange = (currentDate: Date): selectedVale[] => {
 	}
 
 	return result
+}
+
+export const getMonthArray =  (currentDate: Date): selectedVale[] => {
+	const MonthArray: selectedVale[] = Object.keys(MonthEnum)
+		.filter(item => isNaN(parseInt(item)))
+		.map(month => (
+			{
+				value: month,
+				isOverRange: false,
+				isSelected: month === MonthEnum[dayjs(currentDate).month()]
+			}
+		))
+
+	return MonthArray
 }

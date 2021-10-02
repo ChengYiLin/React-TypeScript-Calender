@@ -24,7 +24,6 @@ const Year = styled.p<{isOverRange: boolean; isSelected: boolean}>`
 
     background-color: ${props => props.isSelected ? '#db3d44' : 'transparent'};
     color: ${props => props.isSelected ? '#ffffff' : props.isOverRange ? '#eeeeee' : '#000000'};
-    
 `
 
 const YearPannel: FC = () => {

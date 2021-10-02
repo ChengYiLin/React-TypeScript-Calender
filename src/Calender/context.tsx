@@ -9,7 +9,7 @@ const Today = new Date()
 
 const CalenderContextInitState: ICalenderContext = {
 	currentDate: Today,
-	viewType: 'year',
+	viewType: 'month',
 	viewYearArray: (getViewYearRange(Today)),
 	handleMoveViewYear: () => {return},
 }
@@ -19,7 +19,7 @@ export const CalenderContext = createContext(CalenderContextInitState)
 export const CalenderProvider: FC = ({children}) => {
 	const [currentDate, setCurrentDate] = useState<Date>(Today)
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [viewType, setViewType] = useState<viewTypes>('year')
+	const [viewType, setViewType] = useState<viewTypes>('month')
 	const [viewYearArray, setViewYearArray] = useState<selectedVale[]>(getViewYearRange(Today))
 
 	const handleMoveViewYear = (direction: moveTypes): void => {
