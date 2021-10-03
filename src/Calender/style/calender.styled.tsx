@@ -9,12 +9,16 @@ const ResetStyle = styled.div`
 		font: inherit;
 		vertical-align: baseline;
 		font-family: 'Arial', sans-serif;
+		:focus {
+			outline: none;
+		}
 	}
 `
 
 export const Container = styled(ResetStyle)`
 	display: flex;
 	flex-direction: column;
+	position: relative;
 `
 
 export const CalenderContainer = styled(ResetStyle)`
@@ -29,6 +33,10 @@ export const CalenderContainer = styled(ResetStyle)`
 	
 	box-sizing: border-box;
 	padding: 10px;
+	
+	position: absolute;
+	top: 50px;
+	right: -20px;
 `
 
 export const SwitchPanel = styled.div`

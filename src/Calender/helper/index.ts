@@ -2,8 +2,11 @@ import dayjs from 'dayjs'
 import { selectedYear, selectedMonth, selectedDate } from '../types/calender'
 import { MonthEnum, DayOfWeekEnum } from '../types/enum'
 
-export const getYearArray = (currentDate: Date): selectedYear[] => {
-	const startYear = Math.floor(dayjs(currentDate).year() / 10) * 10 - 1
+const DateRegExp = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
+export const dateRegExp = new RegExp(DateRegExp)
+
+export const getYearArray = (pickedDate: string, viewDate: Date): selectedYear[] => {
+	const startYear = Math.floor(dayjs(viewDate).year() / 10) * 10 - 1
 
 	const result: selectedYear[] = []
 
@@ -15,7 +18,7 @@ export const getYearArray = (currentDate: Date): selectedYear[] => {
 		result.push({
 			value: pushedYear,
 			isOverRange: (startIndex === 0 || startIndex === 11),
-			isSelected: (pushedYear === dayjs(currentDate).year()) 
+			isSelected: (pushedYear === dayjs(pickedDate).year()) 
 		})
 		startIndex ++
 	}
@@ -23,13 +26,13 @@ export const getYearArray = (currentDate: Date): selectedYear[] => {
 	return result
 }
 
-export const getMonthArray =  (currentDate: Date): selectedMonth[] => {
+export const getMonthArray =  (pickedDate: string): selectedMonth[] => {
 	const MonthArray: selectedMonth[] = Object.keys(MonthEnum)
 		.filter(item => isNaN(parseInt(item)))
 		.map(month => (
 			{
 				value: month,
-				isSelected: month === MonthEnum[dayjs(currentDate).month()]
+				isSelected: month === MonthEnum[dayjs(pickedDate).month()]
 			}
 		))
 
@@ -44,9 +47,9 @@ export const getDayOfWeekArray =  (): string[] => {
 	return DayOfWeekArray
 }
 
-export const getDateArray =  (currentDate: Date): selectedDate[][] => {
+export const getDateArray =  (pickedDate: string, viewDate: Date): selectedDate[][] => {
 	const DateArray: selectedDate[][] = []
-	const firstDateOfThisMonth = dayjs(currentDate).startOf('month')
+	const firstDateOfThisMonth = dayjs(viewDate).startOf('month')
 
 	for (let week=0; week<6; week++) {
 		const DateArrayForThisWeek = []
@@ -57,8 +60,9 @@ export const getDateArray =  (currentDate: Date): selectedDate[][] => {
 			DateArrayForThisWeek.push({
 				id: pushedDate.format('YYYY/MM/DD'),
 				value: pushedDate.date(),
-				isOverRange: pushedDate.month() !== dayjs(currentDate).month(),
-				isSelected: dayjs(currentDate).isSame(pushedDate, 'date')
+				isOverRange: pushedDate.month() !== dayjs(viewDate).month(),
+				isSelected: dayjs(pickedDate).isSame(pushedDate, 'date'),
+				isToday: dayjs().isSame(pushedDate, 'date'),
 			})
 		}
 

@@ -25,16 +25,16 @@ const Content = styled.div`
 
 interface DescTxtProps {
     viewType: viewTypes;
-    currentDate: Date;
+    viewDate: Date;
     
 }
 
 const ViewTypeDescTxt: FC<DescTxtProps> = (props) => {
-	const {viewType, currentDate} = props
+	const {viewType, viewDate} = props
 
-	const currentYear = dayjs(currentDate).year()
+	const currentYear = dayjs(viewDate).year()
 	const startYear = Math.floor(currentYear / 10) * 10
-	const currentMonth = MonthEnum[dayjs(currentDate).month()]
+	const currentMonth = MonthEnum[dayjs(viewDate).month()]
 	
 
 	switch (viewType) {
@@ -53,14 +53,14 @@ const ViewTypeDescTxt: FC<DescTxtProps> = (props) => {
 }
 
 const ViewTypeSwitch: FC = () => {
-	const { viewType, currentDate, handleChangeViewType } = useContext(CalenderContext)
+	const { viewType, viewDate, handleChangeViewType } = useContext(CalenderContext)
 
 	return (
 		<Container onClick={() => handleChangeViewType()}>
 			<Content>
 				<ViewTypeDescTxt
 					viewType={viewType}
-					currentDate={currentDate}/>
+					viewDate={viewDate}/>
 			</Content>
 		</Container>
 	)

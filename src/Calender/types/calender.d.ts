@@ -18,11 +18,16 @@ export interface selectedDate {
     value: number;
     isOverRange: boolean;
     isSelected: boolean;
+    isToday: boolean;
 }
 
 export interface ICalenderContext { 
-    currentDate: Date;
+    viewDate: Date;
+    pickedDate: string;
     viewType: viewTypes;
+    isInputInValid: boolean;
+    handleDateValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleDateValueKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     handleSelectYear: (year: selectedYear) => void;
     handleSelectMonth: (month: selectedMonth) => void;
     handleSelectDate: (date: selectedDate) => void;

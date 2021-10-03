@@ -23,19 +23,28 @@ const DayCell = styled(Cell)`
     font-weight: bolder;
 `
 
-const DateCell = styled(Cell)<{ isOverRange: boolean; isSelected: boolean; }>`
+const DateCell = styled(Cell)<{ isOverRange: boolean; isSelected: boolean; isToday: boolean; }>`
     border-radius: 50%;
     cursor: pointer;
 
     background-color: ${props => props.isSelected ? '#db3d44' : 'transparent'};
-    color: ${props => props.isSelected ? '#ffffff' : props.isOverRange ? '#bebebe' : '#000000'};
+    color: ${props => props.isSelected ? 
+		'#ffffff' : props.isOverRange ?
+			'#bebebe' : props.isToday ?
+				'#db3b44' : '#000000'
+};
 `
 
-const DatePanel: FC = () => {
-	const { currentDate, handleSelectDate } = useContext(CalenderContext)
+interface Props {
+	toggleOpenCalender: () => void
+}
+
+const DatePanel: FC<Props> = (props) => {
+	const { toggleOpenCalender } = props
+	const { pickedDate, viewDate, handleSelectDate } = useContext(CalenderContext)
 
 	const DayOfWeekArray = getDayOfWeekArray()
-	const DateArray = getDateArray(currentDate)
+	const DateArray = getDateArray(pickedDate, viewDate)
 
 	return (
 		<Container>
@@ -55,7 +64,8 @@ const DatePanel: FC = () => {
 							key={date.id}
 							isOverRange={date.isOverRange}
 							isSelected={date.isSelected}
-							onClick={() => handleSelectDate(date)}>
+							isToday={date.isToday}
+							onClick={() => {handleSelectDate(date); toggleOpenCalender()}}>
 							{date.value}
 						</DateCell>
 					))}

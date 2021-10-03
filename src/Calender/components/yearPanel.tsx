@@ -28,9 +28,9 @@ const Year = styled.p<{isOverRange: boolean; isSelected: boolean}>`
 `
 
 const YearPanel: FC = () => {
-	const { currentDate, handleSelectYear } = useContext(CalenderContext)
+	const { pickedDate, viewDate, handleSelectYear } = useContext(CalenderContext)
 
-	const YearArray = getYearArray(currentDate)
+	const YearArray = getYearArray(pickedDate, viewDate)
 
 	return (
 		<Container>

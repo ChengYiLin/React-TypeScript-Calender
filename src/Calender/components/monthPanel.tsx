@@ -28,9 +28,9 @@ const Month = styled.p<{isSelected: boolean}>`
 `
 
 const MonthPanel: FC = () => {
-	const { currentDate, handleSelectMonth } = useContext(CalenderContext)
+	const { pickedDate, handleSelectMonth } = useContext(CalenderContext)
 	
-	const MonthArray = getMonthArray(currentDate)
+	const MonthArray = getMonthArray(pickedDate)
 
 	return (
 		<Container>
