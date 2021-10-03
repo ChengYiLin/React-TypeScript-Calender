@@ -24,17 +24,16 @@ const Arrow = styled.p`
 `
 
 interface Props {
-	onChange: (newDate: string) => void
     direction: moveTypes;
 }
 
 const MoveButton: FC<Props> = (props) => {
-	const { onChange, direction } = props
+	const { direction } = props
 	const { handleMoveAction } = useContext(CalenderContext)
 
 	return (
 		<Container>
-			<Arrow onClick={() => handleMoveAction(direction, onChange)}>
+			<Arrow onClick={() => handleMoveAction(direction)}>
 				{(direction === 'prev') ?
 					<span>&#60;</span> :
 					<span>&#62;</span>

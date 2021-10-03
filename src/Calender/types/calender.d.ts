@@ -29,5 +29,5 @@ export interface ICalenderContext {
     handleSelectMonth: (month: selectedMonth, onChange: (newDate: string) => void) => void;
     handleSelectDate: (date: selectedDate, onChange: (newDate: string) => void) => void;
     handleChangeViewType: (target?: viewTypes) => void;
-    handleMoveAction: (direction: moveTypes, onChange: (newDate: string) => void) => void;
+    handleMoveAction: (direction: moveTypes) => void;
 }

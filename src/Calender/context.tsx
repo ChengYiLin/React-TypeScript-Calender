@@ -64,7 +64,7 @@ export const CalenderProvider: FC = ({children}) => {
 		}
 	}
 
-	const handleMoveAction = (direction: moveTypes, onChange: (newDate: string) => void) => {
+	const handleMoveAction = (direction: moveTypes) => {
 		const duration = (viewType === 'year') ? 10 : 1
 		const moveType = (viewType !== 'date') ? 'year' : 'month'
 
@@ -73,7 +73,6 @@ export const CalenderProvider: FC = ({children}) => {
 			dayjs(viewDate).subtract(duration, moveType).toDate()
 
 		setViewDate(targetDate)
-		onChange(dayjs(targetDate).format('YYYY-MM-DD'))
 	}
 
 	const context = useMemo(() => (

@@ -8,12 +8,14 @@ const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  padding-top: 50px;
+  font-family: 'Arial', sans-serif;
 `
 
 const App:FC = () => {
-	const [date, setDate] = useState<string>('2021-10-10')
+	const [date, setDate] = useState<string>('1997-02-17')
 
 	const handleDateChange = (newDate: string) => {
 		setDate(newDate)
@@ -21,7 +23,10 @@ const App:FC = () => {
 
 	return (
 		<Wrapper>
-			<h1>React Calender</h1>
+			<h1>Hi ! React Calender</h1>
+			<p>I am Cheng Yi Lin, also can call me Martin</p>
+			<p>I Built it by React, TypeScript and Webpack</p>
+			<p>Hope You Like it 😁</p>
 			<Calender
 				value={date}
 				onChange={handleDateChange}

@@ -32,13 +32,9 @@ const Calender: FC<Props> = (props) => {
 				{openCalender && (
 					<Styled.CalenderContainer>
 						<Styled.SwitchPanel>
-							<MoveButton
-								direction='prev'
-								onChange={onChange}/>
+							<MoveButton direction='prev' />
 							<ViewTypeSwitch />
-							<MoveButton
-								direction='next'
-								onChange={onChange}/>
+							<MoveButton direction='next' />
 						</Styled.SwitchPanel>
 						<PanelRouter
 							value={value}
