@@ -27,10 +27,16 @@ const Month = styled.p<{isSelected: boolean}>`
 	color: ${props => props.isSelected ? '#ffffff' : '#000000'};
 `
 
-const MonthPanel: FC = () => {
-	const { pickedDate, handleSelectMonth } = useContext(CalenderContext)
+interface Props {
+	value: string;
+	onChange: (newDate: string) => void
+}
+
+const MonthPanel: FC<Props> = (props) => {
+	const { value, onChange } = props
+	const { handleSelectMonth } = useContext(CalenderContext)
 	
-	const MonthArray = getMonthArray(pickedDate)
+	const MonthArray = getMonthArray(value)
 
 	return (
 		<Container>
@@ -39,7 +45,7 @@ const MonthPanel: FC = () => {
 					<Month 
 						key={month.value}
 						isSelected={month.isSelected}
-						onClick={() => handleSelectMonth(month)}>
+						onClick={() => handleSelectMonth(month, onChange)}>
 						{month.value}
 					</Month>
 				))}

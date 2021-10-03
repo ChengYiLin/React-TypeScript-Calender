@@ -7,22 +7,30 @@ import MonthPanel from './monthPanel'
 import DatePanel from './datePanel'
 
 interface Props {
+	value: string;
+	onChange: (newDate: string) => void
 	toggleOpenCalender: () => void
 }
 
 const PanelRouter: FC<Props> = (props) => {
-	const { toggleOpenCalender } = props
+	const { value, onChange, toggleOpenCalender } = props
 	const { viewType } = useContext(CalenderContext)
         
 	switch (viewType) {
 	case 'year':
-		return <YearPanel />
+		return <YearPanel value={value} onChange={onChange}/>
 	case 'month':
-		return <MonthPanel />
+		return <MonthPanel value={value} onChange={onChange} />
 	case 'date':
-		return <DatePanel toggleOpenCalender={toggleOpenCalender} />
+		return <DatePanel
+			value={value}
+			onChange={onChange}
+			toggleOpenCalender={toggleOpenCalender}/>
 	default:
-		return <DatePanel toggleOpenCalender={toggleOpenCalender} />
+		return <DatePanel
+			value={value}
+			onChange={onChange}
+			toggleOpenCalender={toggleOpenCalender}/>
 	}
 }
 

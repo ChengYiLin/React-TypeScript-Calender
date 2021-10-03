@@ -8,7 +8,14 @@ import MoveButton from './components/moveButton'
 import ViewTypeSwitch from './components/viewTypeSwitch'
 import PanelRouter from './components/panelRouter'
 
-const Calender: FC = () => {
+interface Props {
+	value: string;
+	onChange: (newDate: string) => void
+}
+
+const Calender: FC<Props> = (props) => {
+	const { value, onChange } = props
+
 	const [openCalender, setOpenCalender] = useState(false)
 
 	const toggleOpenCalender = () => {
@@ -18,15 +25,25 @@ const Calender: FC = () => {
 	return (
 		<CalenderProvider>
 			<Styled.Container>
-				<InputBar toggleOpenCalender={toggleOpenCalender} />
+				<InputBar
+					value={value}
+					onChange={onChange}
+					toggleOpenCalender={toggleOpenCalender} />
 				{openCalender && (
 					<Styled.CalenderContainer>
 						<Styled.SwitchPanel>
-							<MoveButton direction='prev' />
+							<MoveButton
+								direction='prev'
+								onChange={onChange}/>
 							<ViewTypeSwitch />
-							<MoveButton direction='next' />
+							<MoveButton
+								direction='next'
+								onChange={onChange}/>
 						</Styled.SwitchPanel>
-						<PanelRouter toggleOpenCalender={toggleOpenCalender} />
+						<PanelRouter
+							value={value}
+							onChange={onChange}
+							toggleOpenCalender={toggleOpenCalender} />
 					</Styled.CalenderContainer>
 				)}
 			</Styled.Container>

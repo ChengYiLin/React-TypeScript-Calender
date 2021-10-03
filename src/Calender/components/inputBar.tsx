@@ -1,5 +1,8 @@
 import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
+import dayjs from 'dayjs'
+// Helper
+import { dateRegExp } from '../helper'
 // Context
 import { CalenderContext } from '../context'
 
@@ -20,24 +23,47 @@ const OpenButton = styled.button`
 `
 
 interface Props {
+	value: string;
+	onChange: (newDate: string) => void
 	toggleOpenCalender: () => void
 }
 
 const InputBar: FC<Props> = (props) => {
-	const { toggleOpenCalender } = props
+	const { value, onChange, toggleOpenCalender } = props
+	const { setViewDate } = useContext(CalenderContext)
 
-	const { 
-		pickedDate,
-		isInputInValid,
-		handleDateValueChange,
-		handleDateValueKeyDown
-	} = useContext(CalenderContext)
+	let isKeyBackspace = false
+	let isInputInValid = false
+
+	const handleDateValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		let currentValue = e.target.value
+
+		// Auto add '-' in value
+		if (!isKeyBackspace && (currentValue.length === 4 || currentValue.length === 7)) {
+			currentValue += '-'
+		}
+
+		// RegExp
+		isInputInValid = dateRegExp.test(currentValue)
+		if (dateRegExp.test(currentValue)) {
+			if (dayjs(currentValue).isBefore(dayjs('1900-01-01')) || dayjs(currentValue).isAfter(dayjs('2099-12-31'))) {
+				currentValue = '2020-01-01'
+			}
+			setViewDate(dayjs(currentValue).toDate())	
+		}
+
+		onChange(currentValue)
+	}
+
+	const handleDateValueKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		isKeyBackspace = e.code === 'Backspace'		
+	}
 
 	return (
 		<Container isInputInValid={isInputInValid}>
 			<Input 
 				type='text'
-				value={pickedDate}
+				value={value}
 				placeholder='YYYY-MM-DD'
 				maxLength={10}
 				onChange={e => handleDateValueChange(e)}

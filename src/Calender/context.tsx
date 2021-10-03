@@ -3,18 +3,13 @@ import dayjs from 'dayjs'
 // Tying
 import { ICalenderContext, viewTypes, moveTypes,  selectedYear, selectedMonth, selectedDate} from './types/calender'
 import { MonthEnum } from './types/enum'
-// Helper
-import { dateRegExp } from './helper'
 
 const Today = new Date()
 
 const CalenderContextInitState: ICalenderContext = {
 	viewDate: Today,
-	pickedDate: '',
 	viewType: 'date',
-	isInputInValid: false,
-	handleDateValueChange: () => {return},
-	handleDateValueKeyDown: () => {return},
+	setViewDate: () => {return},
 	handleSelectYear: () => {return},
 	handleSelectMonth: () => {return},
 	handleSelectDate: () => {return},
@@ -26,60 +21,29 @@ export const CalenderContext = createContext(CalenderContextInitState)
 
 export const CalenderProvider: FC = ({children}) => {
 	const [viewDate, setViewDate] = useState<Date>(Today)
-	const [pickedDate, setPickedDate] = useState<string>('')
-	const [isInputInValid, setIsInputInValid] = useState<boolean>(false)
 	const [viewType, setViewType] = useState<viewTypes>('date')
 
-	let isKeyBackspace = false
-
-	const handleDateValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		let currentValue = e.target.value
-
-		// Auto add '-' in value
-		if (!isKeyBackspace && (currentValue.length === 4 || currentValue.length === 7)) {
-			currentValue += '-'
-		}
-
-		// RegExp
-		if (dateRegExp.test(currentValue)) {
-			if (dayjs(currentValue).isBefore(dayjs('1900-01-01')) || dayjs(currentValue).isAfter(dayjs('2099-12-31'))) {
-				currentValue = '2020-01-01'
-			}
-			setIsInputInValid(false)
-			setViewDate(dayjs(currentValue).toDate())	
-		} else {
-			setIsInputInValid(true)
-		}
-
-		setPickedDate(currentValue)
-	}
-
-	const handleDateValueKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		isKeyBackspace = e.code === 'Backspace'		
-	}
-
-	const handleSelectYear = (year: selectedYear) => {
+	const handleSelectYear = (year: selectedYear, onChange: (newDate: string) => void) => {
 		const targetDate = dayjs(viewDate).year(year?.value)
 
 		setViewDate(targetDate.toDate())
-		setPickedDate(targetDate.format('YYYY-MM-DD'))
+		onChange(targetDate.format('YYYY-MM-DD'))
 		handleChangeViewType('month')
 	}
 
-	const handleSelectMonth = (month: selectedMonth) => {
+	const handleSelectMonth = (month: selectedMonth, onChange: (newDate: string) => void) => {
 		const targetDate = dayjs(viewDate).month(MonthEnum[month.value])
 
 		setViewDate(targetDate.toDate())
-		setPickedDate(targetDate.format('YYYY-MM-DD'))
+		onChange(targetDate.format('YYYY-MM-DD'))
 		handleChangeViewType('date')
 	}
 
-	const handleSelectDate = (date: selectedDate) => {
+	const handleSelectDate = (date: selectedDate, onChange: (newDate: string) => void) => {
 		const targetDate = dayjs(date.id)
 		
 		setViewDate(targetDate.toDate())
-		setPickedDate(targetDate.format('YYYY-MM-DD'))
+		onChange(targetDate.format('YYYY-MM-DD'))
 	}
 
 	const handleChangeViewType = (target?: viewTypes) => {
@@ -100,7 +64,7 @@ export const CalenderProvider: FC = ({children}) => {
 		}
 	}
 
-	const handleMoveAction = (direction: moveTypes) => {
+	const handleMoveAction = (direction: moveTypes, onChange: (newDate: string) => void) => {
 		const duration = (viewType === 'year') ? 10 : 1
 		const moveType = (viewType !== 'date') ? 'year' : 'month'
 
@@ -109,23 +73,21 @@ export const CalenderProvider: FC = ({children}) => {
 			dayjs(viewDate).subtract(duration, moveType).toDate()
 
 		setViewDate(targetDate)
+		onChange(dayjs(targetDate).format('YYYY-MM-DD'))
 	}
 
 	const context = useMemo(() => (
 		{
 			viewDate,
-			pickedDate,
 			viewType,
-			isInputInValid,
-			handleDateValueChange,
-			handleDateValueKeyDown,
+			setViewDate,
 			handleSelectYear,
 			handleSelectMonth,
 			handleSelectDate,
 			handleChangeViewType,
 			handleMoveAction,
 		}
-	),[ viewDate, pickedDate, viewType, isInputInValid])
+	),[viewDate, viewType, setViewDate])
 
 	return (
 		<CalenderContext.Provider value={context}>

@@ -36,15 +36,17 @@ const DateCell = styled(Cell)<{ isOverRange: boolean; isSelected: boolean; isTod
 `
 
 interface Props {
+	value: string;
+	onChange: (newDate: string) => void
 	toggleOpenCalender: () => void
 }
 
 const DatePanel: FC<Props> = (props) => {
-	const { toggleOpenCalender } = props
-	const { pickedDate, viewDate, handleSelectDate } = useContext(CalenderContext)
+	const { value, onChange, toggleOpenCalender } = props
+	const { viewDate, handleSelectDate } = useContext(CalenderContext)
 
 	const DayOfWeekArray = getDayOfWeekArray()
-	const DateArray = getDateArray(pickedDate, viewDate)
+	const DateArray = getDateArray(value, viewDate)
 
 	return (
 		<Container>
@@ -65,7 +67,7 @@ const DatePanel: FC<Props> = (props) => {
 							isOverRange={date.isOverRange}
 							isSelected={date.isSelected}
 							isToday={date.isToday}
-							onClick={() => {handleSelectDate(date); toggleOpenCalender()}}>
+							onClick={() => {handleSelectDate(date, onChange); toggleOpenCalender()}}>
 							{date.value}
 						</DateCell>
 					))}

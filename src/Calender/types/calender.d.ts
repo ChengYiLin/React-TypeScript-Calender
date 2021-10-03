@@ -23,14 +23,11 @@ export interface selectedDate {
 
 export interface ICalenderContext { 
     viewDate: Date;
-    pickedDate: string;
     viewType: viewTypes;
-    isInputInValid: boolean;
-    handleDateValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleDateValueKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-    handleSelectYear: (year: selectedYear) => void;
-    handleSelectMonth: (month: selectedMonth) => void;
-    handleSelectDate: (date: selectedDate) => void;
+    setViewDate: React.Dispatch<React.SetStateAction<Date>>;
+    handleSelectYear: (year: selectedYear, onChange: (newDate: string) => void) => void;
+    handleSelectMonth: (month: selectedMonth, onChange: (newDate: string) => void) => void;
+    handleSelectDate: (date: selectedDate, onChange: (newDate: string) => void) => void;
     handleChangeViewType: (target?: viewTypes) => void;
-    handleMoveAction: (direction: moveTypes) => void;
+    handleMoveAction: (direction: moveTypes, onChange: (newDate: string) => void) => void;
 }

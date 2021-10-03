@@ -27,10 +27,16 @@ const Year = styled.p<{isOverRange: boolean; isSelected: boolean}>`
     color: ${props => props.isSelected ? '#ffffff' : props.isOverRange ? '#bebebe' : '#000000'};
 `
 
-const YearPanel: FC = () => {
-	const { pickedDate, viewDate, handleSelectYear } = useContext(CalenderContext)
+interface Props {
+	value: string;
+	onChange: (newDate: string) => void
+}
 
-	const YearArray = getYearArray(pickedDate, viewDate)
+const YearPanel: FC<Props> = (props) => {
+	const { value, onChange } = props
+	const { viewDate, handleSelectYear } = useContext(CalenderContext)
+
+	const YearArray = getYearArray(value, viewDate)
 
 	return (
 		<Container>
@@ -40,7 +46,7 @@ const YearPanel: FC = () => {
 						key={year.value}
 						isOverRange={year.isOverRange}
 						isSelected={year.isSelected}
-						onClick={() => handleSelectYear(year)} >
+						onClick={() => handleSelectYear(year, onChange)} >
 						{year.value}
 					</Year>
 				))}
