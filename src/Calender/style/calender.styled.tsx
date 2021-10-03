@@ -8,6 +8,7 @@ const ResetStyle = styled.div`
 		font-size: 100%;
 		font: inherit;
 		vertical-align: baseline;
+		font-family: 'Arial', sans-serif;
 	}
 `
 
