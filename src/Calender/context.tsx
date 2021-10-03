@@ -1,7 +1,7 @@
 import React, { createContext, FC, useState, useMemo } from 'react'
 import dayjs from 'dayjs'
 // Tying
-import { ICalenderContext, viewTypes, moveTypes,  selectedYear, selectedMonth} from './types/calender'
+import { ICalenderContext, viewTypes, moveTypes,  selectedYear, selectedMonth, selectedDate} from './types/calender'
 // Helper
 import { MonthEnum } from './types/enum'
 
@@ -9,9 +9,10 @@ const Today = new Date()
 
 const CalenderContextInitState: ICalenderContext = {
 	currentDate: Today,
-	viewType: 'month',
+	viewType: 'date',
 	handleSelectYear: () => {return},
 	handleSelectMonth: () => {return},
+	handleSelectDate: () => {return},
 	handleChangeViewType: () => {return},
 	handleMoveAction: () => {return},
 }
@@ -20,7 +21,7 @@ export const CalenderContext = createContext(CalenderContextInitState)
 
 export const CalenderProvider: FC = ({children}) => {
 	const [currentDate, setCurrentDate] = useState<Date>(Today)
-	const [viewType, setViewType] = useState<viewTypes>('month')
+	const [viewType, setViewType] = useState<viewTypes>('date')
 
 	const handleSelectYear = (year: selectedYear) => {
 		const targetDate = dayjs(currentDate).year(year?.value).toDate()
@@ -33,7 +34,13 @@ export const CalenderProvider: FC = ({children}) => {
 		const targetDate = dayjs(currentDate).month(MonthEnum[month.value]).toDate()
 
 		setCurrentDate(targetDate)
-		handleChangeViewType('year')
+		handleChangeViewType('date')
+	}
+
+	const handleSelectDate = (date: selectedDate) => {
+		const targetDate = dayjs(date.id).toDate()
+		
+		setCurrentDate(targetDate)
 	}
 
 	const handleChangeViewType = (target?: viewTypes) => {
@@ -71,6 +78,7 @@ export const CalenderProvider: FC = ({children}) => {
 			viewType,
 			handleSelectYear,
 			handleSelectMonth,
+			handleSelectDate,
 			handleChangeViewType,
 			handleMoveAction,
 		}

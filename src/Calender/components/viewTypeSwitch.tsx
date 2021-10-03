@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 // Context
 import { CalenderContext } from '../context'
 import { viewTypes } from '../types/calender'
+import { MonthEnum } from '../types/enum'
 
 const Container = styled.button`
     width: 200px;
@@ -31,17 +32,23 @@ interface DescTxtProps {
 const ViewTypeDescTxt: FC<DescTxtProps> = (props) => {
 	const {viewType, currentDate} = props
 
-	const startYear = Math.floor(dayjs(currentDate).year() / 10) * 10
+	const currentYear = dayjs(currentDate).year()
+	const startYear = Math.floor(currentYear / 10) * 10
+	const currentMonth = MonthEnum[dayjs(currentDate).month()]
+	
 
 	switch (viewType) {
 	case 'year':
 		return <span>{`${startYear} - ${startYear + 9}`}</span>
     
 	case 'month':
-		return <span>{dayjs(currentDate).year()}</span>
+		return <span>{currentYear}</span>
+
+	case 'date':
+		return <span>{`${currentMonth} ${currentYear}`}</span>
 
 	default:
-		return <span>{`${dayjs(currentDate).month()} ${dayjs(currentDate).year()}`}</span>
+		return <span>{`${currentMonth} ${currentYear}`}</span>
 	}
 }
 
