@@ -32,4 +32,4 @@ npm run build
 
 4. And then you will see my efforts in the browser, just like bellow 
 
-![](https://i.imgur.com/WNHqTD7.gif)
+![image](https://github.com/ChengYiLin/React-TypeScript-Calender/blob/main/Demo.gif)
